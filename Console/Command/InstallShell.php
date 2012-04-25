@@ -98,7 +98,7 @@ class InstallShell extends AppShell {
 	protected function _activate($type = null, $zip = null) {
 		try {
 			$ext = $this->_ExtensionsInstaller->{'get' . ucfirst($type) . 'Name'}($zip);
-			$this->dispatchShell(array('ext', 'activate', $type, $ext));
+			$this->dispatchShell('ext', 'activate', $type, $ext);
 			return true;
 		} catch (CakeException $e) {
 			$this->err($e->getMessage());
@@ -135,11 +135,11 @@ class InstallShell extends AppShell {
 		if (empty($url)) {
 			throw new ConsoleException(__('Please specify a URL to a zipball extension'));
 		}
-		$this->out(__('Downloading extension...'));
 		$url = $this->_githubUrl($url);
 		$filename = uniqid('croogo_') . '.zip';
 		$zip = $this->tmpPath . $filename;
-		$res = $this->_shellExec('curl -L ' . $url . ' -o ' . $zip);
+		$this->out(__('Downloading extension to %s...', $zip));
+		$res = $this->_shellExec('curl -L ' . $url . ' -o ' . $zip . ' 2>&1');
 		return $res ? $zip : false;
 	}
 

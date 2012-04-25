@@ -22,13 +22,13 @@ class TestLinksController extends LinksController {
 		}
 	}
 
-	public function _stop($status = 0) {
+	protected function _stop($status = 0) {
 		$this->stopped = $status;
 	}
 
-	public function __securityError($type) {
-
+	protected function _securityError($type) {
 	}
+
 }
 
 class LinksControllerTest extends CroogoControllerTestCase {
@@ -99,7 +99,7 @@ class LinksControllerTest extends CroogoControllerTestCase {
 		unset($this->Links);
 	}
 
-/*
+/**
  * testAdminIndex
  *
  * @return void

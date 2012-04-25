@@ -23,13 +23,13 @@ class TestCommentsController extends CommentsController {
 		}
 	}
 
-	public function _stop($status = 0) {
+	protected function _stop($status = 0) {
 		$this->stopped = $status;
 	}
 
-	public function __securityError($type) {
-
+	protected function _securityError($type) {
 	}
+
 }
 
 class CommentsControllerTest extends CroogoControllerTestCase {
@@ -320,7 +320,6 @@ class CommentsControllerTest extends CroogoControllerTestCase {
 		$Comments->request->params['url']['url'] = 'comments/add';
 		$Comments->Components->trigger('initialize', array(&$Comments));
 		$Comments->Components->trigger('startup', array(&$Comments));
-
 
 		$Comments->request->data['Comment'] = array(
 			'name' => 'John Smith',

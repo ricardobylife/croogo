@@ -22,7 +22,7 @@ class TestNodesController extends NodesController {
 		}
 	}
 
-	public function _stop($status = 0) {
+	protected function _stop($status = 0) {
 		$this->stopped = $status;
 	}
 
@@ -31,9 +31,9 @@ class TestNodesController extends NodesController {
 		return $this->_viewFallback($views);
 	}
 
-	public function __securityError($type) {
-
+	protected function _securityError($type) {
 	}
+
 }
 
 class NodesControllerTest extends CroogoControllerTestCase {
@@ -104,7 +104,7 @@ class NodesControllerTest extends CroogoControllerTestCase {
 		unset($this->Nodes);
 	}
 
-/*
+/**
  * testAdminIndex
  *
  * @return void

@@ -124,6 +124,11 @@ class User extends AppModel {
 	public function beforeDelete($cascade = true) {
 		$this->Role->Behaviors->attach('Aliasable');
 		$adminRoleId = $this->Role->byAlias('admin');
+
+		$current = AuthComponent::user();
+		if (!empty($current['id']) && $current['id'] == $this->id) {
+			return false;
+		}
 		if ($this->field('role_id') == $adminRoleId) {
 			$count = $this->find('count', array(
 				'conditions' => array(
@@ -132,11 +137,9 @@ class User extends AppModel {
 					'User.status' => true,
 					)
 				));
-			if ($count >= 1) {
-				return true;
-			}
+			return ($count > 0);
 		}
-		return false;
+		return true;
 	}
 
 	public function beforeSave($options = array()) {

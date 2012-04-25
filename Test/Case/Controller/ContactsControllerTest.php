@@ -23,13 +23,13 @@ class TestContactsController extends ContactsController {
 		}
 	}
 
-	public function _stop($status = 0) {
+	protected function _stop($status = 0) {
 		$this->stopped = $status;
 	}
 
-	public function __securityError($type) {
-
+	protected function _securityError($type) {
 	}
+
 }
 
 class ContactsControllerTest extends CroogoControllerTestCase {
